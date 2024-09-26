@@ -11,6 +11,8 @@ import auth_router from "./routes/auth.js";
 import router from "./routes/test_routes.js";
 import error_middleware from "./middlewares/error_middleware.js";
 
+import "express-async-errors";
+
 // config
 dotenv.config();
 
