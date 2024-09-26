@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 // validation middleware
-app.user(error_middleware);
+app.use(error_middleware);
 
 // routes
 app.use("/", auth_router);

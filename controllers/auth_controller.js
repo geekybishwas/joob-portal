@@ -1,4 +1,4 @@
-import User from "../models/userModel";
+import User from "../models/userModel.js";
 
 const register_controller = async (req, res, next) => {
   try {
@@ -18,7 +18,7 @@ const register_controller = async (req, res, next) => {
       user: user,
     });
   } catch (error) {
-    next();
+    next(error);
   }
 };
 
