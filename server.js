@@ -9,6 +9,7 @@ import morgan from "morgan";
 import connectDB from "./config/db.js";
 import auth_router from "./routes/auth.js";
 import router from "./routes/test_routes.js";
+import error_middleware from "./middlewares/error_middleware.js";
 
 // config
 dotenv.config();
@@ -18,7 +19,10 @@ const app = express();
 
 //middlewares
 app.use(express.json());
-app.user;
+app.use(morgan("dev"));
+
+// validation middleware
+app.user(error_middleware);
 
 // routes
 app.use("/", auth_router);
