@@ -16,6 +16,9 @@ import "express-async-errors";
 // config
 dotenv.config();
 
+// mogodb connection
+connectDB();
+
 //rest objects
 const app = express();
 

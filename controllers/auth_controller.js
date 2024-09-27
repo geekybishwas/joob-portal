@@ -9,7 +9,7 @@ const register_controller = async (req, res, next) => {
 
   if (existing_user) next("Email already register, please login");
 
-  const user = await User.create({ name, email, password });
+  const user = await User.create({ first_name, email, password });
 
   return res.status(200).send({
     success: true,
