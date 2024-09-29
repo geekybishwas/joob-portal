@@ -21,4 +21,32 @@ const register_controller = async (req, res, next) => {
   });
 };
 
-export default register_controller;
+const login_controller = async (req, res) => {
+  const { email, password } = req.body;
+
+  // validation
+  if (!email || !password) {
+    next("Please provide all fields");
+  }
+
+  // find user by email
+  const user = await User.findOne({ email });
+
+  if (!user) next("Please signup first");
+
+  // comapre password
+  const isMatch = await user.comaprePassword(password);
+
+  if (!isMatch) next("Invalid credentials");
+
+  const token = user.createJWT();
+
+  res.status(200).json({
+    success: true,
+    message: "Login successfully",
+    user,
+    token,
+  });
+};
+
+export default { register_controller, login_controller };

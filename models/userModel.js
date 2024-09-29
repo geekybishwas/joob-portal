@@ -38,7 +38,12 @@ user_schema.pre("save", async function () {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-// JSON WEBTOKEN
+user_schema.methods.comparePassword = async function (userPassword) {
+  const isMatch = await bcrypt.comapre(userPassword, this.password);
+  return isMatch;
+};
+
+// JSON WEBTOKEN (creating jsconwebtoken with a secret key along with expiry 1d)
 user_schema.methods.createJWT = function () {
   return JWT.sign({ userId: this._id }, process.env.JWT_SECRET, {
     expiresIn: "1d",
