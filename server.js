@@ -12,9 +12,13 @@ import auth_router from "./routes/auth.js";
 import test_route from "./routes/test_routes.js";
 
 import router from "./routes/test_routes.js";
+
+import { updateUserController } from "./controllers/user_controller.js";
+
 import error_middleware from "./middlewares/error_middleware.js";
 
 import "express-async-errors";
+import user_router from "./routes/user_routes.js";
 
 // config
 dotenv.config();
@@ -36,6 +40,8 @@ app.use(error_middleware);
 app.use("/", auth_router);
 
 app.use("/test-post", test_route);
+
+app.use("/user", user_router);
 
 const PORT = process.env.PORT || 8080;
 
