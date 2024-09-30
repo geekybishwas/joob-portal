@@ -2,13 +2,14 @@ import mongoose from "mongoose";
 
 const job_schema = new mongoose.Schema(
   {
-    comopany: {
+    company: {
       type: String,
       required: [true, "Company name is required"],
     },
     position: {
       type: String,
       required: [true, "Job position is required"],
+      maxlenght: 100,
     },
     status: {
       type: String,
@@ -18,7 +19,7 @@ const job_schema = new mongoose.Schema(
     work_type: {
       type: String,
       enum: ["full-time", "part-time", "internship", "contract"],
-      default: "fill-time",
+      default: "full-time",
     },
     work_location: {
       type: String,

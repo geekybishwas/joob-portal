@@ -10,7 +10,7 @@ import connectDB from "./config/db.js";
 import auth_router from "./routes/auth.js";
 
 import test_route from "./routes/test_routes.js";
-import job_router from "./routes/jobs_route.js";
+import job_router from "./routes/jobs_routes.js";
 
 import user_router from "./routes/user_routes.js";
 
@@ -41,7 +41,7 @@ app.use("/test-post", test_route);
 
 app.use("/user", user_router);
 
-app.user("/job", job_router);
+app.use("/job", job_router);
 
 const PORT = process.env.PORT || 8080;
 
