@@ -1,6 +1,7 @@
 import User from "../models/userModel.js";
 
 const register_controller = async (req, res, next) => {
+  console.log(req.body);
   const { first_name, email, password } = req.body;
 
   if (!first_name || !email || !password) next("name is required");

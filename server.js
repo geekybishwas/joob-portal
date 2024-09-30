@@ -8,6 +8,9 @@ import morgan from "morgan";
 // import file
 import connectDB from "./config/db.js";
 import auth_router from "./routes/auth.js";
+
+import test_route from "./routes/test_routes.js";
+
 import router from "./routes/test_routes.js";
 import error_middleware from "./middlewares/error_middleware.js";
 
@@ -31,6 +34,8 @@ app.use(error_middleware);
 
 // routes
 app.use("/", auth_router);
+
+app.use("/test-post", test_route);
 
 const PORT = process.env.PORT || 8080;
 
