@@ -109,8 +109,29 @@ export const jobs_stats_controller = async (req, res, next) => {
     interview: stats.interview || 0,
   };
 
+  // monthly yearly stats
+  let monthly_application = await Job.aggregate([
+    {
+      $match: {
+        createdBy: new moongose.Types.ObjectId(req.user.userId),
+      },
+    },
+    {
+      $group: {
+        _id: {
+          year: { $year: "$createdAt" },
+          month: { $month: "$createdAt" },
+        },
+        count: {
+          $sum: 1,
+        },
+      },
+    },
+  ]);
+
   res.status(200).json({
     totaljobs: stats.length,
     default_stats,
+    monthly_application,
   });
 };
