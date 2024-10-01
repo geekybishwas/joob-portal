@@ -35,11 +35,10 @@ export const get_all_jobs = async (req, res, next) => {
     queryObject.status = status;
   }
 
+  // search
   if (search) queryObject.position = { $regex: search, $options: "i" };
 
   let queryResult = Job.find(queryObject);
-
-  // search
 
   //sorting
   if (sort === "latest") queryResult = queryResult.sort("-createdAt");
@@ -50,12 +49,26 @@ export const get_all_jobs = async (req, res, next) => {
 
   if (sort === "z-a") queryResult = queryResult.sort("position");
 
+  // pagination
+  const page = Number(req.query.page) || 1;
+
+  // initially 10 records will be shown
+  const limit = Number(req.query.limit) || 10;
+
+  const skip = (page - 1) * limit;
+
+  queryResult = queryResult.skip(skip).limit(limit);
+
+  // jobs count
+  const totalJobs = await Job.countDocuments(queryResult);
+  const no_of_page = Math.ceil(totalJobs / limit);
+
   const jobs = await queryResult;
 
   // const jobs = await Job.find({ createdBy: req.user.userId });
 
   res.status(200).json({
-    total_jobs: jobs.length,
+    totalJobs,
     success: "true",
     jobs,
   });
