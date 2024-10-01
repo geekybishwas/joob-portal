@@ -46,8 +46,7 @@ export const update_jobs = async (req, res, next) => {
 
   if (!job) next(`No job is associated with this id ${id}`);
 
-  if (req.user.userId === job.createdBy.toString()) {
-    return;
+  if (req.user.userId !== job.createdBy.toString()) {
     next("You are not authorized to update this job");
   }
 
@@ -58,5 +57,26 @@ export const update_jobs = async (req, res, next) => {
 
   res.status(200).json({
     update_job,
+  });
+};
+
+// delete
+export const delete_jobs = async (req, res, next) => {
+  const { id } = req.params;
+
+  const job = await Job.findOne({ _id: id });
+
+  if (!job) next("No job is associated with that id");
+
+  if (!req.user.userId === job.createdBy.toString()) {
+    next("You are not authorized to delete this job");
+    return;
+  }
+
+  await job.remove();
+
+  return res.status(200).json({
+    message: "Sucessfully deleted the job",
+    job,
   });
 };
