@@ -73,7 +73,9 @@ export const delete_jobs = async (req, res, next) => {
     return;
   }
 
-  await job.remove();
+  // await job.remove();
+
+  await job.deleteOne();
 
   return res.status(200).json({
     message: "Sucessfully deleted the job",
