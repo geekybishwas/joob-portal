@@ -24,9 +24,24 @@ export const create_jobs_controller = async (req, res, next) => {
 // get all jobs
 
 export const get_all_jobs = async (req, res, next) => {
-  const email = req.email;
+  const { status } = req.query;
 
-  const jobs = await Job.find({ createdBy: req.user.userId });
+  
+  const queryObject = {
+    createdBy: req.user.userId,
+  };
+  console.log(queryObject);
+
+  if (status && status !== "all") {
+    queryObject.status = status;
+  }
+
+  const queryResult = Job.find(queryObject);
+  
+  const jobs = await queryResult;
+
+
+  // const jobs = await Job.find({ createdBy: req.user.userId });
 
   res.status(200).json({
     total_jobs: jobs.length,
