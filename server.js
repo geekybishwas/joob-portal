@@ -3,6 +3,12 @@ import express from "express";
 
 import dotenv from "dotenv";
 import morgan from "morgan";
+import "express-async-errors";
+
+// security packages
+import helmet from "helmet";
+import xss from "xss-clean";
+import mongoSanitize from "express-mongo-sanitize";
 
 // MongoDB connection
 // import file
@@ -16,8 +22,6 @@ import user_router from "./routes/user_routes.js";
 
 import error_middleware from "./middlewares/error_middleware.js";
 
-import "express-async-errors";
-
 // config
 dotenv.config();
 
@@ -28,6 +32,9 @@ connectDB();
 const app = express();
 
 //middlewares
+app.use(helmet());
+app.use(xss());
+app.use(mongoSanitize());
 app.use(express.json());
 app.use(morgan("dev"));
 
