@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Socket</title>
+</head>
+
+<body>
+  <h1>Web Socket</h1>
+
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io()
+
+
+    socket.on('new_client_connected', (message) => {
+      document.body.innerHTML = '';
+      document.write(message)
+    })
+
+
+
+
+    /*
+    // Sending data from client to server
+    setTimeout(() => {
+      socket.emit('message_from_client', 'A message from client')
+    }, 3000)
+
+    // Getting data from server side
+    socket.on('message', (data) => {
+      document.write(data)
+    })
+
+    */
+  </script>
+
+</body>
+
+</html>
