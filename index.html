@@ -16,10 +16,17 @@
     var socket = io()
 
 
-    socket.on('new_client_connected', (message) => {
-      document.body.innerHTML = '';
+    socket.on(`connect-1`, (message) => {
+      document.body.innerHTML = ''
       document.write(message)
     })
+
+
+
+    // socket.on('new_client_connected', (message) => {
+    //   document.body.innerHTML = '';
+    //   document.write(message)
+    // })
 
 
 

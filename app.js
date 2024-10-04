@@ -50,9 +50,28 @@ Client side Events:
 
 var clients = 0;
 
+var room_no = 1;
+
+var full = 0;
+
 // socket
 io.on("connection", (socket) => {
   console.log(`A user connected`);
+
+  // Subscribe the socket to the given channel
+  socket.join(`room-${room_no}`);
+
+  io.to(`room-${room_no}`).emit(
+    `connect-${room_no}`,
+    `You are connected to room${room_no}`
+  );
+
+  full++;
+
+  if (full >= 2) {
+    full = 0;
+    room_no++;
+  }
 
   clients++;
 
